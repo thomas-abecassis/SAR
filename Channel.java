@@ -1,37 +1,39 @@
 package TD1;
 
 /**
-* Represent a communication canal between two entities
+* Represente un canal de communication FIFO lossless entre 2 taches, cree par un Broker
 **/
 public class Channel {
 
 /**
-* non-blocking read throught the channel
-* @param byte[] bytes - bytes reads 
-* @param int offset - offset indacting where to start the reading operation
-* @param int length - number of maximum bytes read
-* @return int - number of actual bytes readed
+* Lecture bloquante dans le canal
+* @param byte[] bytes - tableau contenant les octets lus
+* @param int offset - offset indicant le décalage par lequel les octets vont être lus 
+* @param int length - taille maximum d'octets lus
+* @throws IOException - Lève une exception lorsqu'il y a une erreur dans la communication
+* @return int - nombre d'octets effectivement lus
 **/
 public int read(byte[] bytes, int offset, int length) { return 0; }
 
 /**
-* non-blocking read throught the channel
-* @param byte[] bytes - bytes to write 
-* @param int offset - offset indacting where to start the writing operation
-* @param int length - number of maximum bytes write
-* @return int - number of actual bytes writed
+* écriture bloquante dans le canal
+* @param byte[] bytes - tableau contenant les octets à ecrire
+* @param int offset - offset indicant le decalage par lequel les octets vont être écrits 
+* @param int length - taille maximum d'octets à ecrire
+* @throws IOException - Lève une exception lorsqu'il y a une erreur dans la communication
+* @return int - nombre d'octets effectivement ecrits
 **/
 public int write(byte[] bytes, int offset, int length) { return 0; }
 
 /**
-* disconnect the channel communication
+* deconnecte le canal de communication
 * @return void
 **/
 public void disconnect() {}
 
 /**
-* return the state of the Channel
-* @return boolean - true if still active, false otherwise
+* rretourne l'etat du canal
+* @return boolean - true si il est actif, false sinon
 **/
 public boolean disconnected() { return false; }
 }
