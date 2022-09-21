@@ -1,0 +1,9 @@
+Une tache contient un Broker 
+
+Un Broker créé des Channel et des Buffer puis les associs mais n'en stock pas et les retourne à la tache
+Il contient une hashmap statique contenant tous les brokers permettant la connexion.
+
+Channel contient 2 buffers, un correspondant au buffer de read pour la tache de ce channel, 
+passé au channel de l'autre tache en tant que buffer de write
+Un autre correspondant au buffer de write, étant le buffer de read pour l'autre tache,
+passé par le broker au moment de la connexion
