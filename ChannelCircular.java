@@ -7,10 +7,20 @@ public class ChannelCircular extends Channel{
 	private CircularBuffer bufferRead;
 	private CircularBuffer bufferWrite;
 	private boolean disconect = false;
+	private ChannelCircular channelExtern;
 
 	public ChannelCircular(CircularBuffer bufferRead, CircularBuffer bufferWrite) {
 		this.bufferRead=bufferRead;
 		this.bufferWrite=bufferWrite;
+	}
+	
+	public ChannelCircular(CircularBuffer bufferRead, CircularBuffer bufferWrite, ChannelCircular channelExtern) {
+		this(bufferRead, bufferWrite);
+		this.channelExtern = channelExtern;
+	}
+	
+	public void setChannelExtern(ChannelCircular channelExtern) {
+		this.channelExtern = channelExtern;
 	}
 	
 	public int read(byte[] bytes, int offset, int length) { 

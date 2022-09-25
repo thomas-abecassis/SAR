@@ -8,10 +8,20 @@ public class BrokerImplem extends Broker{
 	private int portListen = -1;
 	private CircularBuffer bufferReadExtern = null;
 	private CircularBuffer bufferWriteExtern = null;
+	private ChannelCircular channelExtern;
+	private ChannelCircular channelIntern = null;
 	
 	public BrokerImplem(String name) {
 		super(name);
 		brokers.put(name, this);
+	}
+	
+	public void setChannelExtern(ChannelCircular channelCircular) {
+		this.channelExtern = channelCircular;
+	}
+	
+	public ChannelCircular getChannelIntern() {
+		return channelIntern;
 	}
 	
 	public boolean isPortOpen(int port) {
@@ -26,10 +36,11 @@ public class BrokerImplem extends Broker{
 
 	public Channel accept(int port) { 
 		this.portListen = port;
-		while(this.bufferReadExtern == null || this.bufferWriteExtern == null) {
+		while(this.bufferReadExtern == null || this.bufferWriteExtern == null || this.channelExtern == null) {
 			//j'attends
 		}
-		ChannelCircular channel =  new ChannelCircular(bufferWriteExtern, bufferReadExtern);
+		ChannelCircular channel =  new ChannelCircular(bufferWriteExtern, bufferReadExtern, channelExtern);
+		this.channelIntern = channel;
 		this.bufferReadExtern = null;
 		this.bufferWriteExtern = null;
 		this.portListen = -1;
@@ -45,6 +56,11 @@ public class BrokerImplem extends Broker{
 		CircularBuffer bufferWrite = new CircularBuffer(256);
 		ChannelCircular channelCircular = new ChannelCircular(bufferRead, bufferWrite);
 		broker.setBuffers(bufferRead, bufferWrite);
+		broker.setChannelExtern(channelCircular);
+		while(broker == null) {
+			//j'attends
+		}
+		channelCircular.setChannelExtern(broker.getChannelIntern());
 		return channelCircular;
 	}
 
