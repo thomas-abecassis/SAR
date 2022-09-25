@@ -3,8 +3,12 @@ package TD1;
 /*
 *  Etablit la connexion entre deux taches. Cree les Channel.
 */
-public class Broker {
-  public Broker(String name) {}
+public abstract class Broker {
+	
+	private String name;
+  public Broker(String name) {
+	  this.name=name;
+  }
 
   /**
   * Attend (bloquant) la connexion d'une tache sur un port donne

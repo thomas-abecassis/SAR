@@ -3,7 +3,7 @@ package TD1;
 /**
 * Represente un canal de communication FIFO lossless entre 2 taches, cree par un Broker
 **/
-public class Channel {
+public abstract class Channel {
 
 /**
 * Lecture bloquante dans le canal
