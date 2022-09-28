@@ -71,6 +71,6 @@ public class ChannelCircular extends Channel{
 		this.disconect = true;
 	}
 
-	public boolean disconnected() { return false; }
+	public boolean disconnected() { return channelExtern.disconect; }
 	
 }

@@ -1,0 +1,3 @@
+QueueBroker contient un brokerImplem, va l'utiliser pour récupérer un ChannelCircular puis va le passer à la messageQueue
+
+MessageQueue utilise ChannelCircular, avant chaque envoi de message on envoie un octet de la taille du message.
