@@ -1,6 +1,9 @@
 package TD1;
 
+import java.io.IOException;
 import java.util.Iterator;
+
+import javax.imageio.IIOException;
 
 public class ChannelCircular extends Channel{
 	
@@ -23,19 +26,15 @@ public class ChannelCircular extends Channel{
 		this.channelExtern = channelExtern;
 	}
 	
-	public int read(byte[] bytes, int offset, int length) { 
+	public int read(byte[] bytes, int offset, int length) throws IOException { 
 		int i =0;
-		for (int j = 0; j < offset; j++) {
-			if(!bufferRead.empty() ) {
-				bufferRead.pull();
-			}
-			else {
-				//wait
-			}
-		}
 		while(i <length) {
+			if(channelExtern.disconnected()) {
+				this.disconnect();
+				throw new IOException();
+			}
 			if(!bufferRead.empty() ) {
-				bytes[i]=bufferRead.pull();
+				bytes[offset+i]=bufferRead.pull();
 				i++;
 			}
 			else {
@@ -45,19 +44,15 @@ public class ChannelCircular extends Channel{
 		return i;
 	}
 
-	public int write(byte[] bytes, int offset, int length) { 
+	public int write(byte[] bytes, int offset, int length) throws IOException{ 
 		int i =0;
-		for (int j = 0; j < offset; j++) {
-			if(!bufferWrite.full() ) {
-				bufferWrite.push((byte) 0);
-			}
-			else {
-				//wait
-			}
-		}
 		while(i <length) {
+			if(channelExtern.disconnected()) {
+				this.disconnect();
+				throw new IOException();
+			}
 			if(!bufferWrite.full() ) {
-				bufferWrite.push(bytes[i]);
+				bufferWrite.push(bytes[offset+i]);
 				i++;
 			}
 			else {
@@ -71,6 +66,6 @@ public class ChannelCircular extends Channel{
 		this.disconect = true;
 	}
 
-	public boolean disconnected() { return channelExtern.disconect; }
+	public boolean disconnected() { return this.disconect; }
 	
 }

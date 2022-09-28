@@ -3,7 +3,7 @@ package TD1;
 public abstract class MessageQueue {
 	
 	/**
-	* écriture bloquante d'un message de longueur max 256 octets dans le canal
+	* écriture bloquante et SYNCHRONISE d'un message de longueur max 256 octets dans le canal
 	* @param byte[] bytes - tableau contenant le message à ecrire
 	* @param int offset - offset indicant le decalage par lequel les octets vont être écrits 
 	* @param int length - taille maximum d'octets à ecrire

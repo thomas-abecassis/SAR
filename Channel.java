@@ -1,5 +1,7 @@
 package TD1;
 
+import java.io.IOException;
+
 /**
 * Represente un canal de communication FIFO lossless entre 2 taches, cree par un Broker
 **/
@@ -13,7 +15,7 @@ public abstract class Channel {
 * @throws IOException - Lève une exception lorsqu'il y a une erreur dans la communication
 * @return int - nombre d'octets effectivement lus
 **/
-public int read(byte[] bytes, int offset, int length) { return 0; }
+public int read(byte[] bytes, int offset, int length) throws IOException{ return 0; }
 
 /**
 * écriture bloquante dans le canal
@@ -23,7 +25,7 @@ public int read(byte[] bytes, int offset, int length) { return 0; }
 * @throws IOException - Lève une exception lorsqu'il y a une erreur dans la communication
 * @return int - nombre d'octets effectivement ecrits
 **/
-public int write(byte[] bytes, int offset, int length) { return 0; }
+public int write(byte[] bytes, int offset, int length) throws IOException { return 0; }
 
 /**
 * deconnecte le canal de communication

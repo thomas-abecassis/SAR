@@ -1,5 +1,7 @@
 package TD1;
 
+import java.io.IOException;
+
 public class TacheA extends Tache{
 
 	public TacheA(String name) {
@@ -8,7 +10,12 @@ public class TacheA extends Tache{
 	
 	public void run() {
 		Channel channel = broker.accept(123);
-		channel.write("Hello World!".getBytes(), 0, 12);
+		System.out.println("tachaco");
+		try {
+			channel.write("Hello World!".getBytes(), 0, 12);
+		} catch (IOException e) {
+			System.out.println("je suis déconnecté");
+		}
 	}
 
 }
