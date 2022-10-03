@@ -1,13 +1,15 @@
-package TD1;
+package TD1.taches;
 
 import java.io.IOException;
 
-public class TacheA extends Tache{
+import TD1.channels.Channel;
+
+public class TacheA extends Tache {
 
 	public TacheA(String name) {
 		super(name);
 	}
-	
+
 	public void run() {
 		Channel channel = broker.accept(123);
 		System.out.println("tachaco");

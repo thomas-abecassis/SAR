@@ -1,6 +1,10 @@
-package TD1;
+package TD1.brokers;
 
 import java.util.HashMap;
+
+import TD1.channels.Channel;
+import TD1.channels.ChannelCircular;
+import TD1.channels.CircularBuffer;
 
 public class BrokerImplem extends Broker {
 

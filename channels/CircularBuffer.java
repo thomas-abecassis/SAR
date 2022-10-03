@@ -1,6 +1,6 @@
-package TD1;
+package TD1.channels;
 
-class CircularBuffer {
+public class CircularBuffer {
 
 	int m_capacity;
 	int m_start, m_end;
@@ -22,8 +22,8 @@ class CircularBuffer {
 	}
 
 	/**
-	 * Pushes a byte in the buffer, if the buffer is not full,
-	 * throws an IllegalStateException otherwise.
+	 * Pushes a byte in the buffer, if the buffer is not full, throws an
+	 * IllegalStateException otherwise.
 	 *
 	 * @return true if the push succeeded.
 	 */
@@ -36,8 +36,8 @@ class CircularBuffer {
 	}
 
 	/**
-	 * @return the next available byte, if the buffer is not empty,
-	 *         throws an IllegalStateException otherwise. 
+	 * @return the next available byte, if the buffer is not empty, throws an
+	 *         IllegalStateException otherwise.
 	 */
 	public byte pull() {
 		if (m_start != m_end) {

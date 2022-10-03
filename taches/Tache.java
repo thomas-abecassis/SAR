@@ -1,10 +1,13 @@
-package TD1;
+package TD1.taches;
 
-public class Tache extends Thread{
-	
+import TD1.brokers.Broker;
+import TD1.brokers.BrokerImplem;
+
+public class Tache extends Thread {
+
 	protected String name;
 	protected Broker broker;
-	
+
 	public Tache(String name) {
 		this.name = name;
 		this.broker = new BrokerImplem(name);

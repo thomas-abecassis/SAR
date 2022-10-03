@@ -1,62 +1,57 @@
-package TD1;
+package TD1.channels;
 
 import java.io.IOException;
-import java.util.Iterator;
 
-import javax.imageio.IIOException;
+public class ChannelCircular extends Channel {
 
-public class ChannelCircular extends Channel{
-	
 	private CircularBuffer bufferRead;
 	private CircularBuffer bufferWrite;
 	private boolean disconect = false;
 	private ChannelCircular channelExtern;
 
 	public ChannelCircular(CircularBuffer bufferRead, CircularBuffer bufferWrite) {
-		this.bufferRead=bufferRead;
-		this.bufferWrite=bufferWrite;
+		this.bufferRead = bufferRead;
+		this.bufferWrite = bufferWrite;
 	}
-	
+
 	public ChannelCircular(CircularBuffer bufferRead, CircularBuffer bufferWrite, ChannelCircular channelExtern) {
 		this(bufferRead, bufferWrite);
 		this.channelExtern = channelExtern;
 	}
-	
+
 	public void setChannelExtern(ChannelCircular channelExtern) {
 		this.channelExtern = channelExtern;
 	}
-	
-	public int read(byte[] bytes, int offset, int length) throws IOException { 
-		int i =0;
-		while(i <length) {
-			if(channelExtern.disconnected()) {
+
+	public int read(byte[] bytes, int offset, int length) throws IOException {
+		int i = 0;
+		while (i < length) {
+			if (channelExtern.disconnected()) {
 				this.disconnect();
 				throw new IOException();
 			}
-			if(!bufferRead.empty() ) {
-				bytes[offset+i]=bufferRead.pull();
+			if (!bufferRead.empty()) {
+				bytes[offset + i] = bufferRead.pull();
 				i++;
-			}
-			else {
-				//wait
+			} else {
+				// wait
 			}
 		}
 		return i;
 	}
 
-	public int write(byte[] bytes, int offset, int length) throws IOException{ 
-		int i =0;
-		while(i <length) {
-			if(channelExtern.disconnected()) {
+	public int write(byte[] bytes, int offset, int length) throws IOException {
+		int i = 0;
+		while (i < length) {
+			if (channelExtern.disconnected()) {
 				this.disconnect();
 				throw new IOException();
 			}
-			if(!bufferWrite.full() ) {
-				bufferWrite.push(bytes[offset+i]);
+			if (!bufferWrite.full()) {
+				bufferWrite.push(bytes[offset + i]);
 				i++;
-			}
-			else {
-				//wait
+			} else {
+				// wait
 			}
 		}
 		return i;
@@ -66,6 +61,8 @@ public class ChannelCircular extends Channel{
 		this.disconect = true;
 	}
 
-	public boolean disconnected() { return this.disconect; }
-	
+	public boolean disconnected() {
+		return this.disconect;
+	}
+
 }
