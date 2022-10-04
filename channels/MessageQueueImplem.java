@@ -2,7 +2,13 @@ package TD1.channels;
 
 import java.io.IOException;
 
-public abstract class MessageQueue {
+public class MessageQueueImplem extends MessageQueue {
+
+	private Channel channel;
+
+	public MessageQueueImplem(Channel channel) {
+		this.channel = channel;
+	}
 
 	/**
 	 * écriture bloquante et SYNCHRONISE d'un message de longueur max 256 octets
@@ -18,6 +24,12 @@ public abstract class MessageQueue {
 	 *                                  dépasse les 256 octets
 	 **/
 	public void write(byte[] bytes, int offset, int length) throws IOException {
+		if (length > 256)
+			throw new IllegalArgumentException();
+		byte messageLength = (byte) (((byte) length) & 0xFF);
+		byte[] lengthArray = { messageLength };
+		channel.write(lengthArray, 0, 1);
+		channel.write(bytes, offset, length);
 	}
 
 	/**
@@ -28,7 +40,11 @@ public abstract class MessageQueue {
 	 * @return byte[] - message lu
 	 **/
 	public byte[] receive() throws IOException {
-		return null;
+		byte[] lengthArray = new byte[1];
+		channel.read(lengthArray, 0, 1);
+		byte[] msgArray = new byte[lengthArray[0]];
+		channel.read(msgArray, 0, lengthArray[0]);
+		return msgArray;
 	}
 
 	/**
@@ -37,6 +53,7 @@ public abstract class MessageQueue {
 	 * @return void
 	 **/
 	public void close() {
+		channel.disconnect();
 	}
 
 	/**
@@ -45,6 +62,6 @@ public abstract class MessageQueue {
 	 * @return boolean - true si il est actif, false sinon
 	 **/
 	public boolean closed() {
-		return false;
+		return channel.disconnected();
 	}
 }

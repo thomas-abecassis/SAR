@@ -1,8 +1,19 @@
 package TD1.brokers;
 
+import TD1.channels.Channel;
 import TD1.channels.MessageQueue;
+import TD1.channels.MessageQueueImplem;
 
-public abstract class QueueBroker {
+public class QueueBrokerImplem extends QueueBroker {
+
+	private String name;
+	private int port;
+	private BrokerImplem broker;
+
+	public QueueBrokerImplem(String name) {
+		this.name = name;
+		this.broker = new BrokerImplem(name);
+	}
 
 	/**
 	 * Attend (bloquant) la connexion d'un broker sur un port donne
@@ -11,7 +22,8 @@ public abstract class QueueBroker {
 	 * @return MessageQueue - canal de communication avec l'autre tache
 	 **/
 	public MessageQueue accept(int port) {
-		return null;
+		Channel channel = broker.accept(port);
+		return new MessageQueueImplem(channel);
 	}
 
 	/**
@@ -22,6 +34,7 @@ public abstract class QueueBroker {
 	 * @return MessageQueue - canal de communication entre les taches
 	 **/
 	public MessageQueue connect(String name, int port) {
-		return null;
+		Channel channel = broker.connect(name, port);
+		return new MessageQueueImplem(channel);
 	}
 }

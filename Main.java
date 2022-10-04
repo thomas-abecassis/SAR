@@ -1,15 +1,19 @@
 package TD1;
 
-import TD1.taches.Tache;
-import TD1.taches.TacheA;
-import TD1.taches.TacheB;
+import TD1.taches.TacheQueueA;
+import TD1.taches.TacheQueueB;
 
 class Main {
 	public static void main(String[] args) {
-		Tache tacheA = new TacheA("test1");
-		Tache tacheB = new TacheB("test2");
+		/*
+		 * Tache tacheA = new TacheA("test1"); Tache tacheB = new TacheB("test2");
+		 * 
+		 * tacheA.start(); tacheB.start();
+		 */
+		TacheQueueA tacheQueueA = new TacheQueueA("test1");
+		TacheQueueB tacheQueueB = new TacheQueueB("test2");
 
-		tacheA.start();
-		tacheB.start();
+		tacheQueueA.start();
+		tacheQueueB.start();
 	}
 }
