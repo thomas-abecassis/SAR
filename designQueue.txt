@@ -1,3 +1,7 @@
 QueueBroker contient un brokerImplem, va l'utiliser pour récupérer un ChannelCircular puis va le passer à la messageQueue
+Il contient une hashmap avec une key port pour chopper les queues déjà ouverte
 
-MessageQueue utilise ChannelCircular, avant chaque envoi de message on envoie un octet de la taille du message donc contrainte taille maxe message 256 octets.
+
+MessageQueue utilise ChannelCircular, avant chaque envoi de message on envoie un octet de la taille du message
+ donc contrainte taille max du message 256 octets.
+ La fonction write est un bloque synchro
