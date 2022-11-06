@@ -34,7 +34,14 @@ public class ChannelCircular extends Channel {
 				bytes[offset + i] = bufferRead.pull();
 				i++;
 			} else {
-				// wait
+				synchronized (bufferRead) {
+					try {
+						bufferRead.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return i;
@@ -49,6 +56,9 @@ public class ChannelCircular extends Channel {
 			}
 			if (!bufferWrite.full()) {
 				bufferWrite.push(bytes[offset + i]);
+				synchronized (bufferWrite) {
+					bufferWrite.notifyAll();
+				}
 				i++;
 			} else {
 				// wait

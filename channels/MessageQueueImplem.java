@@ -42,6 +42,7 @@ public class MessageQueueImplem extends MessageQueue {
 	public byte[] receive() throws IOException {
 		byte[] lengthArray = new byte[1];
 		channel.read(lengthArray, 0, 1);
+
 		byte[] msgArray = new byte[lengthArray[0]];
 		channel.read(msgArray, 0, lengthArray[0]);
 		return msgArray;

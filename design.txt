@@ -7,3 +7,14 @@ Channel contient 2 buffers, un correspondant au buffer de read pour la tache de 
 passé au channel de l'autre tache en tant que buffer de write
 Un autre correspondant au buffer de write, étant le buffer de read pour l'autre tache,
 passé par le broker au moment de la connexion
+
+Ajout : 
+Au départ mon design suffisait car je ne considérais pas la connexion
+à plusieurs port en simultané possible néanmoins cette fonctionnalité 
+s'est revelée obligatoire pour la réalisation du serveur broadcast.
+
+Pour réaliser ceci j'ai modifié le design en rajoutant tout d'abord une 
+inner classe PortData dans Broker  contenant toutes les variables dont nous
+avons besoin de manipuler pour la connexion de 2 Broker.
+De cette manière nous avons pu rajouter une Hashmap dans les brokers ayant comme
+clé le numéro de port nous permettant de suivre la connexion sur différents ports en simultanés.

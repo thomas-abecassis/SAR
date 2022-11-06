@@ -1,0 +1,8 @@
+Le serveur de broadcast est une tache ayant un broker.
+Il contient une queue des message qu'il reçoit, une collection de channels des clients,
+ainsi qu'un broker. 
+
+Lorsqu'un client se connecte un channel est créé et enregistrer dans la collection.
+De plus on créée "BroadcastThread" dans lequel est passé le channel ainsi
+qu'une reférence vers une queue de messages, ce thread se charge d'attendre
+un message et de le rajouter dans la queue de manière parallèle.
